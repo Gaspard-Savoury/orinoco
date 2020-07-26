@@ -150,7 +150,7 @@ footer {
         margin: 0 auto;
         max-width: 960px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
         grid-column-gap: 1em;
         grid-row-gap: 3em;
         .product {
@@ -162,89 +162,67 @@ footer {
             .img-container {
                 text-align: center;
                 position: relative;
-                overflow: hidden;
-                height: 198px;
             }
+            .button-container {
+                text-align: center;
+                .product-link {
+                    margin-top: 20px;
+                    padding: 5px 25px;
+                    background-color: var(--primaryColor);
+                    color: var(--mainBlack);
+                    border: 1px solid var(--primaryColor);
+                    text-align: center;
+                    cursor: pointer;
+                    a {
+                        display: inline-block;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        color: black;
+                    }
+                }
+            }
+            
         }
     }    
 }
 // index page products end
 
 // products page products list start
-.products-products {
+.products-product {
     padding: 50px 0;
-    .section-title {
-        h2 {
-            margin-bottom: 25px;
+    width: 90vw;
+    margin: 0 auto;
+    max-width: 960px;
+    .furniture-name {    
+        margin-bottom: 25px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .product-container{
+        display: flex;
+        flex-direction: row;
+        .product-information {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin-left: 30px;
         }
     }
-    .products {
-        width: 90vw;
-        margin: 0 auto;
-        max-width: 960px;
-        display: flex;
-        flex-direction: column;
-        .product {
-            display: flex;
-            flex-direction: row;
-            margin: 25px 0;
-            .left-container {
-                width: 40vw;
-                h3 {
-                    text-align: center;
-                    text-transform: uppercase;
-                }
-                p {
-                    text-align: center;
-                    margin: 10px 0;
-                }
-                .img-container {
-                    text-align: center;
-                }
-            }
-            .right-container {
-                width: 60vw;
-                text-align: center;
-                .varnish-selection {
-                    text-align: center;
-                    text-transform: uppercase;
-                    font-size: 1.2em;
-                    margin-top: 50px;
-                }
-                .varnish-buttons
-                {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-around;
-                    margin-top: 50px;
-                    .varnish-btn {
-                        text-transform: capitalize;
-                        padding: 10px 30px;
-                        background-color: var(--mainWhite);
-                        color: var(--primaryColor);
-                        border: 1px solid var(--mainBlack);
-                        transition: var(--mainTransition);
-                        cursor: pointer;
-                        &:hover {
-                            background: transparent;
-                            color: var(--mainBlack);
-                        }  
-                     }
-                }
-                .add-cart {
-                    margin-top: 50px;
-                    padding: 5px 50px;
-                    text-transform: uppercase;
-                    background-color: var(--primaryColor);
-                    color: var(--mainBlack);
-                    border: 1px solid var(--primaryColor);
-                    transition: var(--mainTransition);
-                    cursor: pointer;
-                    &:hover {
-                        background: transparent;
-                        color: var(--primaryColor);
-                    }  
-                }
+    .button-container {
+        text-align: center;
+        margin-top: 50px;
+        button {
+            padding: 10px 60px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: var(--primaryColor);
+            color: var(--mainBlack);
+            border: 1px solid var(--primaryColor);
+            transition: var(--mainTransition);
+            cursor: pointer;
+            &:hover {
+                background: transparent;
+                color: var(--primaryColor);
             }
         }
     }

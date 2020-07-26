@@ -1,76 +1,38 @@
-const output_div = document.querySelector(".products-center");
-const products_div = document.querySelector(".products");
-const iconBars = document.getElementById("icon-bars")
-const addCartButtons = document.querySelector(".add-cart");
-let output = "";
-let products = ""; 
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const path = require('path');
 
-async function getJson() {
-    let response = await fetch("http://localhost:3000/api/furniture");
-    let data = await response.json();
-    return data;
-}
+const cameraRoutes = require('./routes/camera');
+const teddyRoutes = require('./routes/teddy');
+const furnitureRoutes = require('./routes/furniture');
 
-// index page
+const app = express();
 
-async function showFurniture() {
-    data = await getJson();
-    data.forEach(function(furniture) {
-        output += `
-        <article class="product">
-            <h3 class="furniture-name">${furniture.name}</h3>
-            <div class="img-container">
-                <img src ="${furniture.imageUrl}">
-            </div>
-        </article>
-        `
-    });
-    output_div.innerHTML = output;
-}
+mongoose.connect(
+  'mongodb+srv://will:nAcmfCoHGDgzrCHG@cluster0-pme76.mongodb.net/test?retryWrites=true',
+  { useNewUrlParser: true })
+  .then(() => {
+    console.log('Successfully connected to MongoDB Atlas!');
+  })
+  .catch((error) => {
+    console.log('Unable to connect to MongoDB Atlas!');
+    console.error(error);
+  });
 
-showFurniture();
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
 
-// products page
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
-async function showProducts() {
-    data = await getJson();
-    let furnitureVarnish = '';
-    data.forEach(function(furniture) {
-        furniture.varnish.forEach(function(varnish) {
-            furnitureVarnish += `<button class="varnish-btn">${varnish}</button>`
-        });
-        furniture.price = furniture.price/100;
-        products += `
-        <article class="product">
-            <div class="left-container">
-                <h3>${furniture.name}</h3>
-                <p>£${furniture.price}</p>
-                <div class="img-container">
-                    <img src="${furniture.imageUrl}" alt="furniture">
-                </div> 
-            </div>
-            <div class="right-container">
-                <p class="varnish-selection">choose a varnish</p>
-                <div class="varnish-buttons">
-                    ${furnitureVarnish}
-                </div>
-                <button class="add-cart">add to cart</button>
-            </div>
-        </article>
-        `;
-    furnitureVarnish = '';
-    });
-    products_div.innerHTML = products;
-}
+app.use(bodyParser.json());
 
-showProducts();
+app.use('/api/cameras', cameraRoutes);
+app.use('/api/teddies', teddyRoutes);
+app.use('/api/furniture', furnitureRoutes);
 
-
-// function logFurniture() {
-//     let data = getJson();
-//     console.log(data);
-// }
-
-// logFurniture();
-
-// iconBars.addEventListener
+module.exports = app;

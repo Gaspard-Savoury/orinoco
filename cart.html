@@ -9,7 +9,7 @@
         <script src="https://kit.fontawesome.com/ef3ae08be4.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="cart-page">
         
         <!-- navbar start  -->
         <nav class="navbar">
@@ -40,23 +40,9 @@
                 <h2>your cart</h2>
             </div>
             <div class="product-container">
-                <article class="cart-item">
-                    <div class="cart-item-name">furniture name</div>
-                    <div class="cart-item-varnish">chosen varnish</div>
-                    <div class="cart-item-price">price</div>
-                </article>
-                <article class="cart-item">
-                    <div class="cart-item-name">furniture name</div>
-                    <div class="cart-item-varnish">chosen varnish</div>
-                    <div class="cart-item-price">price</div>
-                </article>
-                <article class="cart-item">
-                    <div class="cart-item-name">furniture name</div>
-                    <div class="cart-item-varnish">chosen varnish</div>
-                    <div class="cart-item-price">price</div>
-                </article>
+            
             </div>
-            <div class="total-price">
+            <div class="cart-total">
                 <p>total price :</p>
                 <p id="add-price">£500</p>
             </div>
@@ -66,20 +52,24 @@
         <section class="section-form">
             <form class="cart-form" method="POST" action="#">
                 <p class="cart-form-input">
-                    <label for="nom">name: </label>
+                    <label for="name">name: </label>
                     <input class="form-box" type="text" name="name" id="name" placeholder="Gaspard Savoury" required/>
+                    <p id="nameErrorMessage" class="form-error"></p>
                 </p>
                 <p class="cart-form-input">
                     <label for="email">email address: </label>
                     <input class="form-box" type="email" name="email" id="email" placeholder="gaspard-savoury@gmail.com" required/>
+                    <p id="emailErrorMessage" class="form-error"></p>
                 </p>
                 <p class="cart-form-input">
                     <label for="phone">phone number: </label>
                     <input class="form-box" type="text" name="phone" id="phone">
+                    <p id="phoneErrorMessage" class="form-error"></p>
                 </p>
                 <p class="cart-form-input">
                     <label for="address">address: </label>
                     <textarea class="form-box" name="address" id="address" required></textarea>
+                    <p id="addressErrorMessage" class="form-error"></p>
                 </p>
                 <p class="cart-checkbox">
                     <input type="checkbox" id="terms" name="terms" value="terms-accepted" required>
@@ -93,6 +83,6 @@
             <a href="mailto:Orinoco.magasin@whatever.com">contact us</a>
         </footer>
         
-        <script src="" async defer></script>
+        <script src="cart.js" async ></script>
     </body>
 </html>
