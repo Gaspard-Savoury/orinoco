@@ -25,7 +25,7 @@ class UI {
                     <img src ="${furniture.imageUrl}">
                 </div>
                 <div class="button-container">
-                <a href="products.html?id=${furniture._id}"><button class="product-link" type="button">Voir le produit</button></a>
+                <a href="products.html?id=${furniture._id}"><button class="product-link" type="button">Show Product</button></a>
                 </div>
             </article>
             `;
@@ -40,3 +40,21 @@ const products = new Products();
 products.getJson(url).then(products => {
     ui.showFurniture(products)
 })
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }

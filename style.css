@@ -299,7 +299,7 @@ footer a {
   margin-bottom: 25px;
 }
 
-.shopping-cart .product-container .cart-item {
+.shopping-cart .product-information {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -315,7 +315,11 @@ footer a {
   padding: 25px 0;
 }
 
-.shopping-cart .total-price {
+.shopping-cart .product-information .product-title {
+  width: 30%;
+}
+
+.shopping-cart .cart-total {
   width: 50%;
   margin-left: auto;
   padding-top: 25px;
@@ -418,5 +422,44 @@ footer a {
           justify-content: space-between;
   text-transform: uppercase;
   margin-right: 20px;
+}
+
+.dropbtn {
+  color: black;
+  padding: 16px;
+  font-size: 1.4em;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

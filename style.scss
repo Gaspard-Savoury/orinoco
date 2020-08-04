@@ -237,17 +237,18 @@ footer {
     .section-title {
         margin-bottom: 25px;
     }
-    .product-container {
-        .cart-item {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            text-transform: uppercase;
-            font-size: large;
-            padding: 25px 0;
+    .product-information {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-size: large;
+        padding: 25px 0;
+        .product-title {
+            width: 30%;
         }
     }
-    .total-price {
+    .cart-total {
         width: 50%;
         margin-left: auto;
         padding-top: 25px;
@@ -328,3 +329,39 @@ footer {
         margin-right: 20px;
     }
 }
+
+// dropdown menu
+
+.dropbtn {
+    color:black ;
+    padding: 16px;
+    font-size: 1.4em;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown a:hover {background-color: #ddd;}
+  
+  .show {display: block;}

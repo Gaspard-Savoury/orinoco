@@ -94,6 +94,4 @@ function addToCart(parentElt, furnitureData) {
     });
 };
 
-
-
 displayFurniture();

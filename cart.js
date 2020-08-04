@@ -23,9 +23,10 @@ const displayCart = async () => {
         const furnitureName = product.name; 
         const furniturePrice = product.price / 100; 
         const furnitureVarnish = product.varnish; 
+        let furnitureQuantity = product.quantity;
         cartInformation.products.push(furnitureId); // push produit vers cartInformation
 
-        renderCart(furnitureName, furniturePrice, furnitureVarnish) // le produit apparait
+        renderCart(furnitureName, furniturePrice, furnitureVarnish, furnitureQuantity) // le produit apparait
 
         const remove = document.querySelectorAll('.remove')[i]; 
         const article = document.querySelectorAll('article')[i];
@@ -38,20 +39,21 @@ const displayCart = async () => {
     }   
 }
 
-const renderCart = (productName, productPrice, varnish) => {
+const renderCart = (productName, productPrice, varnish, quantity) => {
     // Montre les produits dans le cart
     const article = document.createElement('article');
     article.innerHTML = `
     <div class="product-information">
     <p class="product-title">${productName}</p>
-    <p>${varnish}</p>
-    <p class="price">${productPrice} €</p>
-    <div class="remove"><button class="site-btn btn-line">Supprimer</button></div>
+    <p class="quantity"><i class="fas fa-chevron-left"></i> ${quantity} <i class="fas fa-chevron-right"></i></p>
+    <p class="product-varnish">${varnish}</p>
+    <p class="product-price">£${productPrice}</p>
+    <div class="remove"><button class="site-btn btn-line">Delete</button></div>
     </div>`
     cart.insertBefore(article, cartTotal); // article affiché avant cart total
     
-    totalPrice += productPrice; //crée le prix total
-    cartTotal.textContent = `Total : ${totalPrice}€`; 
+    totalPrice += (productPrice * quantity); //crée le prix total
+    cartTotal.textContent = `Total : £${totalPrice}`; 
 }
 // supprimer les éléments du cart
 const deleteCart = (removeElt, container, productName) => {
@@ -93,7 +95,7 @@ function formValidate() {
         nameErrorMessage.textContent = ""; 
 
     } else {
-        nameErrorMessage.textContent = "Veuillez renseigner votre prénom"
+        nameErrorMessage.textContent = "¨Please enter your name"
         name.focus();
         return false;
     }
@@ -102,7 +104,7 @@ function formValidate() {
         addressErrorMessage.textContent = "";
 
     } else {
-        addressErrorMessage.textContent = "Veuillez renseigner votre adresse"
+        addressErrorMessage.textContent = "Please your address"
         address.focus();
         return false;
     }
@@ -111,7 +113,7 @@ function formValidate() {
         emailErrorMessage.textContent = "";
 
     } else {
-        emailErrorMessage.textContent = "Veuillez renseigner une adresse e-mail valide"
+        emailErrorMessage.textContent = "Please enter a valid email address"
         email.focus();
         return false;
     }
@@ -137,9 +139,38 @@ const postData = async (method, url, dataElt) => {
 
 btn.addEventListener("click", async (event) => {
     event.preventDefault(); 
-    const validForm = formValidate(); // Validates form
+    const validForm = formValidate(); // validation du formulaire
     if (validForm !== false ) {
-        const response = await postData('POST', 'http://localhost:3000/api/teddies/order', cartInformation); // Sends data to server    
-        window.location = `checkout.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Sends to checkout page
+        const response = await postData('POST', 'http://localhost:3000/api/teddies/order', cartInformation); // Envoi des données au server
+        window.location = `checkout.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; 
     }
 })
+
+
+
+
+
+
+// else if(event.target.classList.contains("fa-chevron-right")){
+//     let addAmount = event.target;
+//     let id = addAmount.dataset.id;
+//     let tempItem = cart.find(item => item.id === id);
+//     tempItem.amount += 1;
+//     Storage.saveCart(cart);
+//     this.setCartValues(cart);
+//     addAmount.nextElementSibling.innerText = tempItem.amount;
+// }
+// else if(event.target.classList.contains("fa-chevron-left")){
+//     let lowerAmount = event.target;
+//     let id = lowerAmount.dataset.id;
+//     let tempItem = cart.find(item => item.id === id);
+//     tempItem.amount -= 1;
+//     if(tempItem.amount > 0){
+//         Storage.saveCart(cart);
+//         this.setCartValues(cart);
+//         lowerAmount.previousElementSibling.innerText = tempItem.amount;
+//     }
+//     else{
+//         cartContent.removeChild(lowerAmount.parentElement.parentElement);
+//         this.removeItem(id);
+//     }
