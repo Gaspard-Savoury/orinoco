@@ -41,7 +41,11 @@ products.getJson(url).then(products => {
     ui.showFurniture(products)
 })
 
-function myFunction() {
+
+
+
+
+function dropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
   

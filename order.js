@@ -1,33 +1,38 @@
 
-function commande(){
+const orderInformation = window.location.search.substr(1).split('&'); //retrieves the different parts of the json string and returns an array
+const orderId = orderInformation[0].replace('id=', '');
+const totalPrice = orderInformation[1].replace('price=', '');
+const userName = orderInformation[2].replace('user=', '');
+const orderArticle = document.querySelector(".order-products");
 
-    let data = JSON.parse(sessionStorage.getItem('order'));
-    let totalPrice = JSON.parse(sessionStorage.getItem('prix'));
+function renderConfirmation() {
+    orderArticle.innerHTML = `
+    <h3>Your order has been registered</h3>
+    <p>Thank you ${userName}, for shopping with Orinoco.</p>
+    <p>The total amount of your order is: £${totalPrice}.</p>
+    <p>Your order is being processed, the identification number is: ${orderId}</p>
+    `
+};
 
-    let productContainer = document.querySelector(".order-products");
+renderConfirmation();
 
-    // Création du message de confirmation de commande
 
-    if( data != null ) {
-        productContainer.innerHTML = '';
-        // on récupere les données dans l'objet order de la commande dans le LocalStorage
-        Object.values(data).map( () => {
 
-            //et on affiche le message de confirmation avec les données récupérées
-            productContainer.innerHTML = 
-            `<p>Thank you for your order.</p>
-            <p>Your order Id is : <span class="gras"> ${data.orderId}</span>,
-            total amount is :  <span class="gras">${totalPrice} €</span>.
-            </p>
-                
-            <p>Thank you for using Orinoco.<br>` 
-        });    
-    } 
-}
-// remise à zero du sessionStorage grace au bouton "retour a l'accueil du site" et retour a index.html
-function retour(){
 
-    localStorage.clear();
-    sessionStorage.clear();
-}
-commande();
+function dropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }

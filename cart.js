@@ -65,73 +65,98 @@ const deleteCart = (removeElt, container, productName) => {
 }
 displayCart();
 
-// formulaire
-const form = document.querySelector('form');
+
+// début de la partie sur le formulaire
+const form = document.querySelector('form'); // Binds the form section to the js
 
 const containNumber = /[0-9]/;
 const regexEmail = /.+@.+\..+/;
 const specialCharacter = /[$&+,:;=?@#|'<>.^*()%!"{}_"]/;
 
-const isNotEmpty = value => value !== "" ? true : false; // Vérifie que ce n'est pas vide
-const isLongEnough = value => value.length >= 2 ? true : false; // assez de caractère ? 
-const doNotContainNumber = value => !value.match(containNumber) ? true : false; // pas de chiffre
-const doNotContainSpecialCharacter = value => !value.match(specialCharacter) ? true : false; // pas de caractère spéciaux
-const isValidEmail = (value) => value.match(regexEmail) ? true : false; // Bon format
+const isNotEmpty = value => value !== "" ? true : false; // Checks the field is not empty
+const isLongEnough = value => value.length >= 2 ? true : false; // Check there is enough characters
+const doNotContainNumber = value => !value.match(containNumber) ? true : false; // Checks there's no number
+const doNotContainSpecialCharacter = value => !value.match(specialCharacter) ? true : false; // Checks there's no special character
+const isValidEmail = (value) => value.match(regexEmail) ? true : false; // Checks the input is in the right format
 const isValidInput = (value) => isNotEmpty(value) && isLongEnough(value) && doNotContainNumber(value) && doNotContainSpecialCharacter(value);// renvoie true si toutes les conditions sont vérifiées
 
-const name = form.elements.name;
-const email = form.elements.email;
-const phone = form.elements.phone;
+// Form parts
+const firstName = form.elements.firstName;
+const lastName = form.elements.lastName;
 const address = form.elements.address;
-const btn = document.querySelector(".btn-send-cart-form");
+const city = form.elements.city;
+const email = form.elements.email;
+const btn = document.getElementById('site-btn');
 
-const nameErrorMessage = document.getElementById('nameErrorMessage');
-const emailErrorMessage = document.getElementById('emailErrorMessage');
-const phoneErrorMessage = document.getElementById('phoneErrorMessage');
-const addressErrorMessage = document.getElementById('addressErrorMessage');
+const firstNameErrorMessage = document.getElementById('firstNameErrorMessage')
+const lastNameErrorMessage = document.getElementById('lastNameErrorMessage')
+const addressErrorMessage = document.getElementById('addressErrorMessage')
+const cityErrorMessage = document.getElementById('cityErrorMessage')
+const emailErrorMessage = document.getElementById('emailErrorMessage')
 
-function formValidate() {
-    if (isValidInput(name.value)) { 
-        nameErrorMessage.textContent = ""; 
+// Checks user inputs
+const formValidate = () => {
+        if (isValidInput(firstName.value)) { 
+            firstNameErrorMessage.textContent = ""; 
+    
+        } else {
+            firstNameErrorMessage.textContent = "Please enter your first name."
+            firstName.focus();
+            return false;
+        }
+    
+        if(isValidInput(lastName.value)) {
+            lastNameErrorMessage.textContent = "";
+    
+        } else {
+            lastNameErrorMessage.textContent = "Please enter your last name"
+            lastName.focus();
+            return false;
+        }
+    
+        if(isNotEmpty(address.value) && isLongEnough(address.value)) {
+            addressErrorMessage.textContent = "";
+    
+        } else {
+            addressErrorMessage.textContent = "Please enter your address"
+            address.focus();
+            return false;
+        }
+    
+        if (isValidInput(city.value)) {
+            cityErrorMessage.textContent = "";
+    
+        } else {
+            cityErrorMessage.textContent = "Please enter your city";
+            city.focus();
+            return false;
+        }
+    
+        if (isValidEmail(email.value)) {
+            emailErrorMessage.textContent = "";
+    
+        } else {
+            emailErrorMessage.textContent = "Please enter a valid email address"
+            email.focus();
+            return false;
+        }
+    
+        return cartInformation.contact = { // If every input is valid, sends the objects to cartInformation
+                                firstName: firstName.value,
+                                lastName: lastName.value,
+                                address: address.value,
+                                city: city.value,
+                                email: email.value
+                            }
+}
 
-    } else {
-        nameErrorMessage.textContent = "¨Please enter your name"
-        name.focus();
-        return false;
-    }
-
-    if(isNotEmpty(address.value) && isLongEnough(address.value)) {
-        addressErrorMessage.textContent = "";
-
-    } else {
-        addressErrorMessage.textContent = "Please your address"
-        address.focus();
-        return false;
-    }
-
-    if (isValidEmail(email.value)) {
-        emailErrorMessage.textContent = "";
-
-    } else {
-        emailErrorMessage.textContent = "Please enter a valid email address"
-        email.focus();
-        return false;
-    }
-
-    return cartInformation.contact = {
-        name: name.value,
-        email: email.value,
-        address: address.value,
-        phone: phone.value,
-    }
-};
-
-const postData = async (method, url, dataElt) => {
+const postData = async (url, dataElt) => {
+    console.log(cartInformation);
     const response = await fetch(url, {
         headers: {
             'Content-Type' : 'application/json'
         },
-        method,
+        method:'POST',
         body: JSON.stringify(dataElt)
     })
     return await response.json();
@@ -141,8 +166,8 @@ btn.addEventListener("click", async (event) => {
     event.preventDefault(); 
     const validForm = formValidate(); // validation du formulaire
     if (validForm !== false ) {
-        const response = await postData('POST', 'http://localhost:3000/api/teddies/order', cartInformation); // Envoi des données au server
-        window.location = `checkout.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; 
+        const response = await postData('http://localhost:3000/api/furniture/order', cartInformation); // Envoi des données au server
+        window.location = `order.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; 
     }
 })
 
@@ -174,3 +199,22 @@ btn.addEventListener("click", async (event) => {
 //         cartContent.removeChild(lowerAmount.parentElement.parentElement);
 //         this.removeItem(id);
 //     }
+
+
+function dropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
